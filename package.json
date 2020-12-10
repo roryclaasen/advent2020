@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "2020:1": "ts-node -r tsconfig-paths/register ./src/2020/day1",
+    "2020:2": "ts-node -r tsconfig-paths/register ./src/2020/day2",
     "clean": "rimraf dist",
     "lint": "npx eslint . --ext .js,.ts"
   },
