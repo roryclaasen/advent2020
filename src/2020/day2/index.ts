@@ -1,13 +1,9 @@
 // https://adventofcode.com/2020/day/2
 
-import fs from 'fs/promises';
 import path from 'path';
 
-const readInput = async () => {
-    const inputFile = path.resolve(__dirname, 'input');
-    const input = await fs.readFile(inputFile);
-    return input.toString();
-};
+import answer from '@util/answer';
+import { readFileLines } from '@util/file';
 
 type PasswordPolicy = {
     line: string;
@@ -41,11 +37,11 @@ const validatePart2 = ({ start, end, letter, password }: PasswordPolicy) => {
 };
 
 const main = async () => {
-    const passwords = (await readInput()).split(/\r?\n/).map(formatLine);
+    const passwords = (await readFileLines(path.resolve(__dirname, 'input'))).map(formatLine);
     const part1 = passwords.filter(validatePart1).length;
     const part2 = passwords.filter(validatePart2).length;
 
-    return `Answer part 1: ${part1}\nAnswer part 2: ${part2}`;
+    return [part1, part2];
 };
 
-main().then(console.log).catch(console.error);
+answer(main);

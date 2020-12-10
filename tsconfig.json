@@ -19,6 +19,7 @@
     "esModuleInterop": true,
     "baseUrl": "./src",
     "paths": {
+      "@util/*": ["util/*"],
       "@2020/*": ["year2020/*"],
     }
   },

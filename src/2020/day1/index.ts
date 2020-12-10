@@ -1,13 +1,9 @@
 // https://adventofcode.com/2020/day/1
 
-import fs from 'fs/promises';
 import path from 'path';
 
-const readInput = async () => {
-    const inputFile = path.resolve(__dirname, 'input');
-    const input = await fs.readFile(inputFile);
-    return input.toString();
-};
+import answer from '@util/answer';
+import { readFileLines } from '@util/file';
 
 const product = (array: number[]) => {
     let result = array[0];
@@ -51,10 +47,10 @@ const findEntriesThatSum = (target: number, noEntries: number, entries: number[]
 const main = async () => {
     const target = 2020;
 
-    const numbers = (await readInput()).split(/\r?\n/).map((num) => +num);
+    const numbers = (await readFileLines(path.resolve(__dirname, 'input'))).map((num) => +num);
     const answerPart1 = product(findEntriesThatSum(target, 2, numbers));
     const answerPart2 = product(findEntriesThatSum(target, 3, numbers));
-    return `Answer part 1: ${answerPart1}\nAnswer part 2: ${answerPart2}`;
+    return [answerPart1, answerPart2];
 };
 
-main().then(console.log).catch(console.error);
+answer(main);
