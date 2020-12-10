@@ -1,4 +1,4 @@
-import fs from 'fs/promises';
+import { promises as fs } from 'fs';
 
 export const readFile = async (
     path: string | Buffer | URL | fs.FileHandle,
