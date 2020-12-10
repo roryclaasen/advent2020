@@ -1,0 +1,19 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "noEmit": true,
+    "sourceMap": true,
+    "module": "commonjs",
+    "target": "esnext",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "outDir": "./dist/",
+    "rootDir": "./src",
+    "baseUrl": "./src",
+    "paths": {
+      "@2020/*": ["year2020/*"],
+    }
+  },
+  "exclude": [".git", ".github", "**/node_modules"]
+}

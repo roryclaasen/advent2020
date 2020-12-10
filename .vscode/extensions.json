@@ -1,0 +1,8 @@
+{
+  "recommendations":[
+    "dbaeumer.vscode-eslint",
+    "fknop.vscode-npm",
+    "mike-co.import-sorter",
+    "esbenp.prettier-vscode"
+  ]
+}

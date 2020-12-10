@@ -1,0 +1,30 @@
+{
+  "endOfLine": "auto",
+  "trailingComma": "none",
+  "tabWidth": 4,
+  "useTabs": false,
+  "semi": true,
+  "singleQuote": true,
+  "bracketSpacing": true,
+  "printWidth": 180,
+  "overrides": [
+    {
+      "files": [
+        "*.md",
+        "*.json",
+        "*.yml"
+      ],
+      "options": {
+        "tabWidth": 2
+      }
+    },
+    {
+      "files": [
+        ".prettierrc"
+      ],
+      "options": {
+        "parser": "json"
+      }
+    }
+  ]
+}
