@@ -2,10 +2,9 @@
 
 import path from 'path';
 
-import answer from '@util/answer';
 import { readFileLines } from '@util/file';
 
-const navigate = (map: string[], xSlope: number, ySlope: number) => {
+export const navigate = (map: string[], xSlope: number, ySlope: number): number => {
     const height = map.length;
     const width = map[0].length;
     let x = 0;
@@ -26,7 +25,7 @@ const navigate = (map: string[], xSlope: number, ySlope: number) => {
     return treeCount;
 };
 
-const main = async () => {
+export default async (): Promise<number[]> => {
     const map = await readFileLines(path.resolve(__dirname, 'input'));
     const r1d1 = navigate(map, 1, 1);
     const r3d1 = navigate(map, 3, 1);
@@ -37,5 +36,3 @@ const main = async () => {
     const answerPart2 = r1d1 * r3d1 * r5d1 * r7d1 * r1d2;
     return [r3d1, answerPart2];
 };
-
-answer(main);

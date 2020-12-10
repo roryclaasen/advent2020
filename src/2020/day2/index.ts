@@ -2,10 +2,9 @@
 
 import path from 'path';
 
-import answer from '@util/answer';
 import { readFileLines } from '@util/file';
 
-type PasswordPolicy = {
+export type PasswordPolicy = {
     line: string;
     start: number;
     end: number;
@@ -13,7 +12,7 @@ type PasswordPolicy = {
     password: string;
 };
 
-const formatLine = (line: string): PasswordPolicy => {
+export const formatLine = (line: string): PasswordPolicy => {
     const result = line.match(/^(\d+)-(\d+) (\w): (.+)$/);
     if (!result) throw new Error(`Invalid input '${line}'`);
     return {
@@ -25,23 +24,21 @@ const formatLine = (line: string): PasswordPolicy => {
     };
 };
 
-const validatePart1 = ({ start, end, letter, password }: PasswordPolicy) => {
+export const validatePart1 = ({ start, end, letter, password }: PasswordPolicy): boolean => {
     const count = password.match(new RegExp(letter, 'g'))?.length ?? -1;
     return count >= start && count <= end;
 };
 
-const validatePart2 = ({ start, end, letter, password }: PasswordPolicy) => {
+export const validatePart2 = ({ start, end, letter, password }: PasswordPolicy): boolean => {
     const validChar1 = password.charAt(start - 1) === letter;
     const validChar2 = password.charAt(end - 1) === letter;
     return (validChar1 && !validChar2) || (!validChar1 && validChar2);
 };
 
-const main = async () => {
+export default async (): Promise<number[]> => {
     const passwords = (await readFileLines(path.resolve(__dirname, 'input'))).map(formatLine);
     const part1 = passwords.filter(validatePart1).length;
     const part2 = passwords.filter(validatePart2).length;
 
     return [part1, part2];
 };
-
-answer(main);

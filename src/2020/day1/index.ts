@@ -2,22 +2,10 @@
 
 import path from 'path';
 
-import answer from '@util/answer';
 import { readFileLines } from '@util/file';
+import { product, sum } from '@util/math';
 
-const product = (array: number[]) => {
-    let result = array[0];
-    array.slice(1).forEach((num) => (result *= num));
-    return result;
-};
-
-const sumArray = (array: number[]) => {
-    let result = array[0];
-    array.slice(1).forEach((num) => (result += num));
-    return result;
-};
-
-const findEntriesThatSum = (target: number, noEntries: number, entries: number[]) => {
+export const productEntriesThatSum = (target: number, noEntries: number, entries: number[]): number => {
     let found = false;
 
     const findResult = (startIndex: number, current: number[]): number[] => {
@@ -27,7 +15,7 @@ const findEntriesThatSum = (target: number, noEntries: number, entries: number[]
             current[level] = entries[i];
 
             if (level + 1 === noEntries) {
-                found = sumArray(current) === target;
+                found = sum(current) === target;
                 if (found) break;
             } else {
                 current = findResult(i + 1, current);
@@ -41,16 +29,14 @@ const findEntriesThatSum = (target: number, noEntries: number, entries: number[]
     const result = findResult(0, []);
 
     if (!found) throw new Error(`Could not find ${noEntries} numbers that summed ${target}`);
-    return result;
+    return product(result);
 };
 
-const main = async () => {
+export default async (): Promise<number[]> => {
     const target = 2020;
 
     const numbers = (await readFileLines(path.resolve(__dirname, 'input'))).map((num) => +num);
-    const answerPart1 = product(findEntriesThatSum(target, 2, numbers));
-    const answerPart2 = product(findEntriesThatSum(target, 3, numbers));
+    const answerPart1 = productEntriesThatSum(target, 2, numbers);
+    const answerPart2 = productEntriesThatSum(target, 3, numbers);
     return [answerPart1, answerPart2];
 };
-
-answer(main);
