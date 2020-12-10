@@ -51,12 +51,10 @@ const findEntriesThatSum = (target: number, noEntries: number, entries: number[]
 const main = async () => {
     const target = 2020;
 
-    const numbers = (await readInput()).split('\n').map((num) => +num);
+    const numbers = (await readInput()).split(/\r?\n/).map((num) => +num);
     const answerPart1 = product(findEntriesThatSum(target, 2, numbers));
     const answerPart2 = product(findEntriesThatSum(target, 3, numbers));
     return `Answer part 1: ${answerPart1}\nAnswer part 2: ${answerPart2}`;
 };
 
-main()
-    .then((result) => console.log(result))
-    .catch(console.error);
+main().then(console.log).catch(console.error);
