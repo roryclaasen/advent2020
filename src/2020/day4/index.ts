@@ -3,6 +3,7 @@
 import path from 'path';
 
 import { readFile } from '@util/file';
+import { isNumBetween } from '@util/math';
 
 export type Passport = {
     byr: string | undefined;
@@ -46,23 +47,18 @@ export const validatePart1 = (passport: Passport): boolean => {
 
 export const validatePart2 = (passport: Passport): boolean => {
     let valid = true;
-
-    const isNumBetween = (value: string, floor: number, ceil: number) => {
-        const num = +value;
-        return !isNaN(num) && num >= floor && num <= ceil;
-    };
     const len = (value: string, length: number) => value.length === length;
     const validateToken = (token: keyof Passport, value: string) => {
         switch (token) {
             case 'byr':
-                return len(value, 4) && isNumBetween(value, 1920, 2002);
+                return len(value, 4) && isNumBetween(value, 1920, 2002)[0];
             case 'iyr':
-                return len(value, 4) && isNumBetween(value, 2010, 2020);
+                return len(value, 4) && isNumBetween(value, 2010, 2020)[0];
             case 'eyr':
-                return len(value, 4) && isNumBetween(value, 2020, 2030);
+                return len(value, 4) && isNumBetween(value, 2020, 2030)[0];
             case 'hgt': {
-                if (value.endsWith('cm')) return isNumBetween(value.replace('cm', ''), 150, 193);
-                if (value.endsWith('in')) return isNumBetween(value.replace('in', ''), 59, 76);
+                if (value.endsWith('cm')) return isNumBetween(value.replace('cm', ''), 150, 193)[0];
+                if (value.endsWith('in')) return isNumBetween(value.replace('in', ''), 59, 76)[0];
                 return false;
             }
             case 'hcl':

@@ -1,12 +1,14 @@
+import { isNumBetween } from '@util/math';
+
 const adventArgs = process.argv.slice(2);
 if (adventArgs.length !== 2) {
     console.error('You may only pass in the year and the day of the month');
     process.exit(1);
 }
 
-const validate = (arg: string, errMessage: string, lowerBound: number, upperBound?: number) => {
-    const num = +arg;
-    if (isNaN(num) || num < lowerBound || (!!upperBound && num > upperBound)) {
+const validate = (arg: string, errMessage: string, floor: number, ceil?: number) => {
+    const [valid, num] = isNumBetween(arg, floor, ceil);
+    if (!valid) {
         console.error(errMessage);
         process.exit(1);
     }
