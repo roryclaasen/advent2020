@@ -4,6 +4,7 @@ import path from 'path';
 
 import { readFile } from '@util/file';
 import { isNumBetween } from '@util/math';
+import { splitBlankLinesSingleLine } from '@util/string';
 
 export type Passport = {
     byr: string | undefined;
@@ -80,12 +81,7 @@ export const validatePart2 = (passport: Passport): boolean => {
     return valid;
 };
 
-export const parseFile = (file: string): Passport[] =>
-    file
-        .split(/(\r?\n){2}/)
-        .filter((line) => !/^\r?\n$/.test(line))
-        .map((data) => data.replace(/\r?\n/g, ' '))
-        .map(parseLine);
+export const parseFile = (file: string): Passport[] => splitBlankLinesSingleLine(file).map(parseLine);
 
 export default async (): Promise<number[]> => {
     const passports = parseFile(await readFile(path.resolve(__dirname, 'input')));
